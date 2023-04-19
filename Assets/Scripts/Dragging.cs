@@ -15,7 +15,6 @@ public class Dragging : MonoBehaviour
         Observer.current.markerSelected += Select;
     }
 
-
     private void Select(long id)
     {
         if (this.GetComponent<ObjectMarker>().Id == id)
