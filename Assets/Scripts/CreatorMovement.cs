@@ -71,6 +71,9 @@ public class CreatorMovement : MonoBehaviour
         Quaternion rotationQuaternion = Quaternion.LookRotation(relativePos, Vector3.up);
         Quaternion smoothRotation = Quaternion.Slerp(transform.localRotation, rotationQuaternion, 0.2f);
         transform.localRotation = smoothRotation;
+        Vector3 temp = orbitContext.transform.eulerAngles;
+        temp.x = 0;
+        orbitContext.transform.eulerAngles = temp; 
     }
 
     private void Orbit(Transform contextTransform)

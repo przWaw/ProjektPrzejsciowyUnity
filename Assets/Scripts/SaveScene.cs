@@ -37,7 +37,7 @@ public class SaveScene
     {
         SaveObject saveObject = new SaveObject
         {
-            views = views.ToList(),
+            viewList = views.ToList(),
             objects = new List<TransportClass>()
         };
         foreach (var marker in markers)
@@ -52,7 +52,7 @@ public class SaveScene
     private class SaveObject
     {
         public List<TransportClass> objects;
-        public List<string> views;
+        public List<string> viewList;
     }
 
 }

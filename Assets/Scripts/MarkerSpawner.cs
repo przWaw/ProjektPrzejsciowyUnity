@@ -10,15 +10,6 @@ public class MarkerSpawner : MonoBehaviour
     private GameObject lastMarker;
     private long currentId;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            lastMarker = Instantiate(objectMarker);
-            lastMarker.GetComponent<ObjectMarker>().Id = currentId;
-            SaveToStorage(lastMarker);
-        }
-    }
 
     public void Spawn()
     {

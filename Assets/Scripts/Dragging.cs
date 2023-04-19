@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Dragging : MonoBehaviour
@@ -17,7 +18,7 @@ public class Dragging : MonoBehaviour
 
     private void Select(long id)
     {
-        if (this.GetComponent<ObjectMarker>().Id == id)
+        if (this.id == id)
         {
         selected = true;
         }
@@ -30,7 +31,10 @@ public class Dragging : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Observer.current.MarkerSelected(id);
+        if (!selected)
+        {
+            Observer.current.MarkerSelected(id);
+        }
         zCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         offsetFromScreeen = transform.position - GetMouseAsWorldPoint();
     }
@@ -51,5 +55,10 @@ public class Dragging : MonoBehaviour
         {
         transform.position = GetMouseAsWorldPoint() + offsetFromScreeen;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Observer.current.markerSelected -= Select;
     }
 }

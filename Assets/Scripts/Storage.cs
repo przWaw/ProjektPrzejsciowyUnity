@@ -9,15 +9,17 @@ public class Storage : MonoBehaviour
 {
     private GameObject sceneContext;
     private List<GameObject> markers;
-    private HashSet<string> views;
+    private HashSet<string> viewList;
     private SaveScene savingMethod;
+    public static Storage storage;
 
     private void Start()
     {
         markers = new List<GameObject>();
-        views = new HashSet<string>();
+        viewList = new HashSet<string>();
         Observer.current.markerSelected += UnselectAll;
         savingMethod = new SaveScene();
+        storage = this;
     }
 
     public void SetSceneContext(GameObject sceneContext)
@@ -36,18 +38,25 @@ public class Storage : MonoBehaviour
         {
         marker.transform.SetParent(this.sceneContext.transform);
         }
-        UpdateViews(marker);
     }
 
     public void UpdateViews(GameObject marker)
     {
-        if (views.Count > 0)
+        if (marker != null)
         {
-            foreach (var view in marker.GetComponent<ObjectMarker>().GetViews())
+            ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
+            if (myMarker.GetViews() != null)
             {
-                if (view != null)
+                if (!string.IsNullOrEmpty(myMarker.Label))
                 {
-                    views.Add(view);
+                    myMarker.addView(myMarker.Label + "_Details");
+                }
+                foreach (var view in marker.GetComponent<ObjectMarker>().GetViews())
+                {
+                    if (view != null)
+                    {
+                        viewList.Add(view);
+                    }
                 }
             }
         }
@@ -61,16 +70,24 @@ public class Storage : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U)) 
-        {
-            this.Save();
-        }
-    }
-
     public void Save()
     {
-        savingMethod.SaveState(markers, views);
+        foreach (var marker in markers)
+        {
+            UpdateViews(marker);
+        }
+        savingMethod.SaveState(markers, viewList);
+    }
+
+    public GameObject findById(long id)
+    {
+        foreach (var marker in markers)
+        {
+            if (marker.GetComponent<ObjectMarker>().Id == id)
+            {
+                return marker;
+            }
+        }
+        return null;
     }
 }

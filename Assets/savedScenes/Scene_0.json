@@ -1,11 +1,12 @@
 {
     "objects": [
         {
+            "label": "Object1",
             "id": 0,
             "position": {
-                "x": 0.0,
-                "y": 0.5,
-                "z": 0.0
+                "x": -2.4185848236083986,
+                "y": 1.96659255027771,
+                "z": 0.7962942123413086
             },
             "rotation": {
                 "x": 0.0,
@@ -17,8 +18,80 @@
                 "y": 1.0,
                 "z": 1.0
             },
-            "views": []
+            "views": [
+                "input",
+                "electrical",
+                "readtojson",
+                "object1_details"
+            ]
+        },
+        {
+            "label": "object2",
+            "id": 1,
+            "position": {
+                "x": 3.095787525177002,
+                "y": 1.5627446174621583,
+                "z": 0.5770235061645508
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "views": [
+                "sorry",
+                "for",
+                "lack",
+                "of",
+                "rotation",
+                "object2_details"
+            ]
+        },
+        {
+            "label": "ObjEcT3",
+            "id": 2,
+            "position": {
+                "x": 0.28765353560447695,
+                "y": 0.8368446826934815,
+                "z": -2.8589446544647219
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "views": [
+                "the",
+                "last",
+                "object",
+                "object3_details"
+            ]
         }
     ],
-    "views": []
+    "viewList": [
+        "electrical",
+        "input",
+        "object1_details",
+        "readtojson",
+        "for",
+        "lack",
+        "object2_details",
+        "of",
+        "rotation",
+        "sorry",
+        "last",
+        "object",
+        "object3_details",
+        "the"
+    ]
 }

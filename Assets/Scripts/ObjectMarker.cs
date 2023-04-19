@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectMarker : MonoBehaviour
 {
+    public string Label { get; set; }
     public long Id { get; set; }
     private HashSet<string> views;
     private void Start()
@@ -13,18 +14,25 @@ public class ObjectMarker : MonoBehaviour
 
     public void addView(string name)
     {
-        views.Add(name.ToLower());
+        views.Add(name.ToLower().Trim());
     }
 
-    public HashSet<string> GetViews()
+    public List<string> GetViews()
     {
-        return views;
+        if (views != null) 
+        { 
+        List<string> sorted = views.ToList();
+        sorted.Sort();
+        return sorted;
+        }
+        return null;
     }
     
     public TransportClass getMarker()
     {
         return new TransportClass
         {
+            label = Label,
             id = Id,
             position = this.transform.localPosition,
             rotation = this.transform.localEulerAngles,
