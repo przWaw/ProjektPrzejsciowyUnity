@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class Storage : MonoBehaviour
 {
@@ -47,10 +43,6 @@ public class Storage : MonoBehaviour
             ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
             if (myMarker.GetViews() != null)
             {
-                if (!string.IsNullOrEmpty(myMarker.Label))
-                {
-                    myMarker.addView(myMarker.Label + "_Details");
-                }
                 foreach (var view in marker.GetComponent<ObjectMarker>().GetViews())
                 {
                     if (view != null)
