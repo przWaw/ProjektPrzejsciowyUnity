@@ -6,10 +6,14 @@ using UnityEngine;
 public class MarkerSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject objectMarker;
-    [SerializeField] private Storage storage;
+    private Storage storage;
     private GameObject lastMarker;
     private long currentId;
 
+    private void Start()
+    {
+        storage = Storage.storage;   
+    }
 
     public void Spawn()
     {

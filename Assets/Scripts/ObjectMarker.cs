@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class ObjectMarker : MonoBehaviour
@@ -15,6 +16,16 @@ public class ObjectMarker : MonoBehaviour
     public void addView(string name)
     {
         views.Add(name.ToLower().Trim());
+    }
+
+    public void AddDetailsView(string prefix)
+    {
+        views.Add(prefix.ToLower() + "_" + Label.ToLower() + "Details");
+    }
+
+    public void RemoveDetailsView()
+    {
+        views.RemoveWhere(s => Regex.Match(s, @".*Details").Success);
     }
 
     public List<string> GetViews()
@@ -33,7 +44,6 @@ public class ObjectMarker : MonoBehaviour
         return new TransportClass
         {
             label = Label,
-            id = Id,
             position = this.transform.localPosition,
             rotation = this.transform.localEulerAngles,
             scale = this.transform.localScale,

@@ -4,10 +4,9 @@ using UnityEngine;
 public class LabelSetter : MonoBehaviour
 {
     private ObjectMarker marker;
-    [SerializeField] private Observer observer;
     void Start()
     {
-        observer.markerSelected += SetMarkerDetails;
+        Observer.current.markerSelected += SetMarkerDetails;
     }
 
     private void SetMarkerDetails(long id)
@@ -24,11 +23,15 @@ public class LabelSetter : MonoBehaviour
     {
         if (this.marker != null)
         {
-            if (!string.IsNullOrEmpty(content))
+            if (!string.IsNullOrEmpty(content.Trim()))
             {
-                marker.Label = content;
+                marker.Label = content.ToUpper().Trim().Replace(" ", "_");
+                UpdateText();
+                return;
             }
-        }
+        }      
+        this.GetComponent<TMP_InputField>().text = "";
+        
     }
     private void UpdateText()
     {

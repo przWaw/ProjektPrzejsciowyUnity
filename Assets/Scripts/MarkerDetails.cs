@@ -6,10 +6,9 @@ public class MarkerDetails : MonoBehaviour
 {
     private ObjectMarker marker;
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private Observer observer;
     void Start()
     {
-        observer.markerSelected += SetMarkerDetails;
+        Observer.current.markerSelected += SetMarkerDetails;
     }
 
     private void SetMarkerDetails(long id)
@@ -29,11 +28,39 @@ public class MarkerDetails : MonoBehaviour
         {
             if (content != null)
             {
+                content = content.Trim().Replace(" ", "_");
                 if (content.Length > 0) { 
                 marker.addView(content);
                 UpdateViews();
+                    return;
                 }
             }
+        }
+        this.GetComponent<TMP_InputField>().text = "";
+        
+    }
+
+    public void ShowMove()
+    {
+        if (marker != null)
+        {
+            marker.GetComponent<Dragging>().ShowMove();
+        }
+    }
+
+    public void ShowRotate()
+    {
+        if (marker != null)
+        {
+            marker.GetComponent<Dragging>().ShowRotate();
+        }
+    }
+
+    public void ShowScale()
+    {
+        if (marker != null)
+        {
+            marker.GetComponent<Dragging>().ShowScale();
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 public class Storage : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Storage : MonoBehaviour
     private List<GameObject> markers;
     private HashSet<string> viewList;
     private SaveScene savingMethod;
+    public string SceneName { get; set; }
     public static Storage storage;
 
     private void Start()
@@ -16,6 +18,19 @@ public class Storage : MonoBehaviour
         Observer.current.markerSelected += UnselectAll;
         savingMethod = new SaveScene();
         storage = this;
+        SceneName = GenerateRandomString();
+    }
+
+    private string GenerateRandomString(int length = 10)
+    {
+        string temp = "";
+        System.Random radom = new System.Random();
+        for (int i = 0; i < length; i++)
+        {
+            temp += (char)radom.Next(65, 126);
+        }
+
+        return temp;
     }
 
     public void SetSceneContext(GameObject sceneContext)
@@ -54,6 +69,24 @@ public class Storage : MonoBehaviour
         }
     }
 
+    public void RemoveDetailsView()
+    {
+        viewList.RemoveWhere(s => Regex.Match(s, @".*Details").Success);
+    }
+    private void AddDetailViews(GameObject marker)
+    {
+        ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
+        myMarker.RemoveDetailsView();
+        RemoveDetailsView();
+        if (myMarker.GetViews() != null)
+        {
+            if (!string.IsNullOrEmpty(myMarker.Label))
+            {
+                myMarker.AddDetailsView(SceneName);
+            }
+        }
+    }
+
     private void UnselectAll(long id)
     {
         foreach (var marker in markers)
@@ -66,9 +99,10 @@ public class Storage : MonoBehaviour
     {
         foreach (var marker in markers)
         {
+            AddDetailViews(marker);
             UpdateViews(marker);
         }
-        savingMethod.SaveState(markers, viewList);
+        savingMethod.SaveState(markers, viewList, SceneName);
     }
 
     public GameObject findById(long id)

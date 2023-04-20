@@ -19,15 +19,20 @@ public class SaveScene
         }
     }
 
-    public void SaveState(List<GameObject> markers, HashSet<string> views)
+    public void SaveState(List<GameObject> markers, HashSet<string> views, string sceneName)
     {
-        string fileName = saveDirectory + "/Scene_";
+        string fileName = saveDirectory + sceneName;
         long id = 0;
-        while (File.Exists(saveDirectory + "/Scene_" + id + ".json"))
+        if (!File.Exists(saveDirectory + sceneName + ".json"))
         {
-            id++;
+            fileName = fileName + ".json";
+        } else {
+            while (File.Exists(saveDirectory + sceneName + id + ".json"))
+            {
+                id++;
+            }
+            fileName = fileName + id + ".json";
         }
-        fileName = fileName + id + ".json";
         File.WriteAllText(fileName, ConvertToJson(markers, views));
         Debug.Log(fileName);
         id++;
