@@ -77,7 +77,6 @@ public class Storage : MonoBehaviour
     {
         ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
         myMarker.RemoveDetailsView();
-        RemoveDetailsView();
         if (myMarker.GetViews() != null)
         {
             if (!string.IsNullOrEmpty(myMarker.Label))
@@ -97,6 +96,7 @@ public class Storage : MonoBehaviour
 
     public void Save()
     {
+        RemoveDetailsView();
         foreach (var marker in markers)
         {
             AddDetailViews(marker);
