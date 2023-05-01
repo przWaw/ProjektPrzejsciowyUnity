@@ -7,7 +7,7 @@ public class Observer : MonoBehaviour
 {
 
     public static Observer current;
-    void Start()
+    void Awake()
     {
         current = this;
     }

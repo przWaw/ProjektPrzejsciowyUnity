@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class MarkerSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject objectMarker;
+    [SerializeField] private ObjectMarker objectMarker;
     private Storage storage;
-    private GameObject lastMarker;
+    private ObjectMarker lastMarker;
     private long currentId;
 
     private void Start()
@@ -17,12 +17,12 @@ public class MarkerSpawner : MonoBehaviour
 
     public void Spawn()
     {
-        lastMarker = Instantiate(objectMarker);
+        lastMarker = Instantiate<ObjectMarker>(objectMarker); 
         lastMarker.GetComponent<ObjectMarker>().Id = currentId;
         SaveToStorage(lastMarker);
     }
 
-    private void SaveToStorage(GameObject marker)
+    private void SaveToStorage(ObjectMarker marker)
     {
         storage.AddMarker(marker);
         currentId++;

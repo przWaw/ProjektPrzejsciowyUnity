@@ -1,23 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using TMPro.Examples;
 
 public class Storage : MonoBehaviour
 {
     private GameObject sceneContext;
-    private List<GameObject> markers;
+    private List<ObjectMarker> markers;
     private HashSet<string> viewList;
     private SaveScene savingMethod;
     public string SceneName { get; set; }
     public static Storage storage;
 
+    private void Awake()
+    {
+        storage = this;
+    }
+
     private void Start()
     {
-        markers = new List<GameObject>();
+        markers = new List<ObjectMarker>();
         viewList = new HashSet<string>();
         Observer.current.markerSelected += UnselectAll;
         savingMethod = new SaveScene();
-        storage = this;
         SceneName = GenerateRandomString();
     }
 
@@ -42,7 +47,7 @@ public class Storage : MonoBehaviour
         }
     }
 
-    public void AddMarker(GameObject marker)
+    public void AddMarker(ObjectMarker marker)
     {
         markers.Add(marker);
         if (sceneContext != null)
@@ -51,14 +56,13 @@ public class Storage : MonoBehaviour
         }
     }
 
-    public void UpdateViews(GameObject marker)
+    public void UpdateViews(ObjectMarker marker)
     {
         if (marker != null)
         {
-            ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
-            if (myMarker.GetViews() != null)
+            if (marker.GetViews() != null)
             {
-                foreach (var view in marker.GetComponent<ObjectMarker>().GetViews())
+                foreach (var view in marker.GetViews())
                 {
                     if (view != null)
                     {
@@ -73,15 +77,14 @@ public class Storage : MonoBehaviour
     {
         viewList.RemoveWhere(s => Regex.Match(s, @".*Details").Success);
     }
-    private void AddDetailViews(GameObject marker)
+    private void AddDetailViews(ObjectMarker marker)
     {
-        ObjectMarker myMarker = marker.GetComponent<ObjectMarker>();
-        myMarker.RemoveDetailsView();
-        if (myMarker.GetViews() != null)
+        marker.RemoveDetailsView();
+        if (marker.GetViews() != null)
         {
-            if (!string.IsNullOrEmpty(myMarker.Label))
+            if (!string.IsNullOrEmpty(marker.Label))
             {
-                myMarker.AddDetailsView(SceneName);
+                marker.AddDetailsView(SceneName);
             }
         }
     }
@@ -111,7 +114,7 @@ public class Storage : MonoBehaviour
         {
             if (marker.GetComponent<ObjectMarker>().Id == id)
             {
-                return marker;
+                return marker.gameObject;
             }
         }
         return null;

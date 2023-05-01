@@ -12,14 +12,14 @@ public class Dragging : MonoBehaviour
     [SerializeField] private GameObject visuals;
     private MovingVisualControl control;
     private bool visualsOn;
-    private BoxCollider collider;
+    private BoxCollider myCollider;
 
     private void Start()
     {
         id = this.GetComponent<ObjectMarker>().Id;
         Observer.current.markerSelected += Select;
         control = visuals.GetComponent<MovingVisualControl>();
-        collider = this.GetComponent<BoxCollider>();
+        myCollider = this.GetComponent<BoxCollider>();
         visuals.SetActive(false);
         visualsOn = false;
     }
@@ -28,21 +28,21 @@ public class Dragging : MonoBehaviour
     {
        control.ShowMove();
        visualsOn = true;
-       collider.enabled = false;
+       myCollider.enabled = false;
     }
 
     public void ShowRotate()
     {
         control.ShowRotate();
         visualsOn = true;
-        collider.enabled = false;
+        myCollider.enabled = false;
     }
 
     public void ShowScale()
     {
         control.ShowScale();
         visualsOn = true;
-        collider.enabled = false;
+        myCollider.enabled = false;
     }
 
 
@@ -63,7 +63,7 @@ public class Dragging : MonoBehaviour
         selected = false;
         control.HideAll();
         visualsOn = false;
-        collider.enabled = true;
+        myCollider.enabled = true;
         visuals.SetActive(false);
     }
 

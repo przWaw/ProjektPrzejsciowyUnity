@@ -19,7 +19,7 @@ public class SaveScene
         }
     }
 
-    public void SaveState(List<GameObject> markers, HashSet<string> views, string sceneName)
+    public void SaveState(List<ObjectMarker> markers, HashSet<string> views, string sceneName)
     {
         string fileName = saveDirectory + sceneName;
         long id = 0;
@@ -38,7 +38,7 @@ public class SaveScene
         id++;
     }
 
-    private string ConvertToJson(List<GameObject> markers, HashSet<string> views)
+    private string ConvertToJson(List<ObjectMarker> markers, HashSet<string> views)
     {
         SaveObject saveObject = new SaveObject
         {
@@ -49,7 +49,7 @@ public class SaveScene
         {
             if (marker != null)
             {
-                saveObject.objects.Add(marker.GetComponent<ObjectMarker>().getMarker());
+                saveObject.objects.Add(marker.getMarker());
             }
         }
         return JsonUtility.ToJson(saveObject, true);
