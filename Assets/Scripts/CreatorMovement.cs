@@ -8,19 +8,22 @@ public class CreatorMovement : MonoBehaviour
 {
     [SerializeField] private float swipeSpeed = 150f;
     [SerializeField] private float rotationSpeed = 1500f;
-    [SerializeField] private GameObject orbitContext;
+    [SerializeField] private Transform orbitContext;
     private Vector3 rotation;
     private Vector3 speed = Vector3.zero;
+    private Vector2 mousePosition;
     private bool moving = false;
     private bool rotating = false;
     private bool orbiting = false;
     private bool zooming = false;
 
+
     static public Transform camPosition;
     
     void Start()
     {
-            camPosition = this.transform;
+        camPosition = this.transform;
+       
     }
 
     void Update()
@@ -29,6 +32,7 @@ public class CreatorMovement : MonoBehaviour
         rotating = (Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftAlt) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl));
         orbiting = (Input.GetMouseButton(1) && Input.GetKey(KeyCode.LeftShift));
         zooming = Input.GetMouseButton(1) && Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftAlt);
+        
 
         Vector3 lineEnd = transform.position + 300.0f * transform.forward;
         Debug.DrawLine(transform.position, lineEnd);
@@ -45,18 +49,20 @@ public class CreatorMovement : MonoBehaviour
         
         if (orbiting)
         {
-            Orbit(orbitContext.transform);
+            Orbit(orbitContext);
         }
 
         if (Input.GetKey(KeyCode.Q))
         {
-            LookAt(orbitContext.transform.position);
+            LookAt(orbitContext.position);
         }
 
         if (zooming)
         {
             MoveForward();
         }
+
+
     }
 
     private void MoveForward()

@@ -7,6 +7,7 @@ public class ObjectMarker : MonoBehaviour
 {
     public string Label { get; set; }
     public long Id { get; set; }
+    public string Url { get; set; }
     private HashSet<string> views;
     private void Start()
     {
@@ -17,6 +18,7 @@ public class ObjectMarker : MonoBehaviour
     {
         views.Add(name.ToLower().Trim());
     }
+
 
     public void AddDetailsView(string prefix)
     {
@@ -44,6 +46,7 @@ public class ObjectMarker : MonoBehaviour
         return new TransportClass
         {
             label = Label,
+            url = Url,
             position = this.transform.localPosition,
             rotation = this.transform.localEulerAngles,
             scale = this.transform.localScale,

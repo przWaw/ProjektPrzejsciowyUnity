@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,39 +6,87 @@ using UnityEngine.EventSystems;
 public class MarkerDetails : MonoBehaviour
 {
     private ObjectMarker marker;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] UpdateSelectedObject updater;
+    [SerializeField] private TMP_InputField labelText;
+    [SerializeField] private TMP_InputField urlText;
+    [SerializeField] private InputFieldManagment inputFields;
+    private bool move, scale = false;
     void Start()
     {
-        Observer.current.markerSelected += SetMarkerDetails;
+        Observer.current.updateMarker += SetMarkerDetails;
+        inputFields.gameObject.SetActive(false);
     }
 
-    private void SetMarkerDetails(long id)
+    private void SetMarkerDetails()
     {
-        GameObject gameObject = Storage.storage.findById(id);
-        if (gameObject != null)
-        {
-            this.marker = gameObject.GetComponent<ObjectMarker>();
-            UpdateViews();
-        }
-
+        marker = updater.Marker;
+        UpdateLabel();
+        UpdateUrl();
+        inputFields.gameObject.SetActive(false);
+        //UpdateViews();
     }
 
-    public void AddViews(string content)
+    //public void AddViews(string content)
+    //{
+    //    if (marker != null)
+    //    {
+    //        if (content != null)
+    //        {
+    //            content = content.Trim().Replace(" ", "_");
+    //            if (content.Length > 0) { 
+    //            marker.addView(content);
+    //            UpdateViews();
+    //                return;
+    //            }
+    //        }
+    //    }
+    //    viewsText.text = "";
+        
+    //}
+    //private void UpdateViews()
+    //{
+    //    text.text = string.Join('\n', marker.GetViews());
+    //    viewsText.text = "";
+    //}
+
+
+    public void SetUrl(string content)
     {
-        if (marker != null)
+        if (this.marker != null)
         {
-            if (content != null)
+            if (!string.IsNullOrEmpty(content.Trim()))
             {
-                content = content.Trim().Replace(" ", "_");
-                if (content.Length > 0) { 
-                marker.addView(content);
-                UpdateViews();
-                    return;
-                }
+                marker.Url = content;
+                UpdateUrl();
             }
         }
-        this.GetComponent<TMP_InputField>().text = "";
-        
+        urlText.text = "";
+
+    }
+    
+    private void UpdateUrl()
+    {
+        urlText.text = marker.Url;
+    }
+
+    public void SetLabel(string content)
+    {
+        if (this.marker != null)
+        {
+            if (!string.IsNullOrEmpty(content.Trim()))
+            {
+                marker.Label = content.ToUpper().Trim().Replace(" ", "_");
+                UpdateLabel();
+                return;
+            }
+        }
+        labelText.text = "";
+
+    }
+
+    private void UpdateLabel()
+    {
+        labelText.text = marker.Label;
     }
 
     public void ShowMove()
@@ -45,14 +94,7 @@ public class MarkerDetails : MonoBehaviour
         if (marker != null)
         {
             marker.GetComponent<Dragging>().ShowMove();
-        }
-    }
-
-    public void ShowRotate()
-    {
-        if (marker != null)
-        {
-            marker.GetComponent<Dragging>().ShowRotate();
+            VisualisePosition();
         }
     }
 
@@ -61,13 +103,38 @@ public class MarkerDetails : MonoBehaviour
         if (marker != null)
         {
             marker.GetComponent<Dragging>().ShowScale();
+            VisualiseScale();
         }
     }
 
-    private void UpdateViews()
+    private void VisualisePosition()
     {
-        text.text = string.Join('\n', marker.GetViews());
-        this.GetComponent<TMP_InputField>().text = "";
+        inputFields.gameObject.SetActive(true);
+        move = true;
+        scale = false;
+        inputFields.SetTexts(marker.transform.localPosition);
+    }
+
+    private void VisualiseScale()
+    {
+        inputFields.gameObject.SetActive(true);
+        move = false;
+        scale = true;
+        inputFields.SetTexts(marker.transform.localScale);
+    }
+
+    public void ChangePosition(string content)
+    {
+        if (move)
+        {
+            marker.transform.localPosition = inputFields.ReadFielads();
+            VisualisePosition();
+        }
+        if(scale)
+        {
+            marker.transform.localScale = inputFields.ReadFielads();
+            VisualiseScale();
+        }
     }
 
     public void FocusAgain(string none)

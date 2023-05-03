@@ -20,4 +20,13 @@ public class Observer : MonoBehaviour
             markerSelected(id);
         }
     }
+
+    public event Action updateMarker;
+    public void UpdateMarker()
+    {
+        if (updateMarker != null)
+        {
+            updateMarker();
+        }
+    }
 }

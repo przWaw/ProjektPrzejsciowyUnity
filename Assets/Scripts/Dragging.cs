@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Dragging : MonoBehaviour
 {
+    [SerializeField] private GameObject visuals;
     private Vector3 offsetFromScreeen;
     private float zCoord;
-    public bool selected;
     private long id;
-    [SerializeField] private GameObject visuals;
-    private MovingVisualControl control;
     private bool visualsOn;
+    public bool selected;
     private BoxCollider myCollider;
+    private MovingVisualControl control;
 
     private void Start()
     {
@@ -29,13 +29,6 @@ public class Dragging : MonoBehaviour
        control.ShowMove();
        visualsOn = true;
        myCollider.enabled = false;
-    }
-
-    public void ShowRotate()
-    {
-        control.ShowRotate();
-        visualsOn = true;
-        myCollider.enabled = false;
     }
 
     public void ShowScale()
