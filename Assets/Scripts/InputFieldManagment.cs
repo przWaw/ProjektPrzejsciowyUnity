@@ -18,23 +18,32 @@ public class InputFieldManagment : MonoBehaviour
         z.text = values.z.ToString();
     }
 
-    public void ReadX(string content)
+    private void ReadX(string content)
     {
         values.x = (float) Convert.ToDouble(content);
     }
 
-    public void ReadY(string content)
+    private void ReadY(string content)
     {
         values.y = (float)Convert.ToDouble(content);
     }
 
-    public void ReadZ(string content)
+    private void ReadZ(string content)
     {
         values.z = (float)Convert.ToDouble(content);
     }
+    
 
-    public Vector4 ReadFielads()
+    public void ReadAll(string placeHolder = "")
     {
+        ReadX(x.text);
+        ReadY(y.text);
+        ReadZ(z.text);
+    }
+
+    public Vector3 ReadFielads()
+    {
+        ReadAll();
         return values;
     }
 }

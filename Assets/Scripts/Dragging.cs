@@ -38,6 +38,12 @@ public class Dragging : MonoBehaviour
         myCollider.enabled = false;
     }
 
+    public void HideAll()
+    {
+        control.HideAll();
+        visualsOn = false;
+        myCollider.enabled = true;
+    }
 
     private void Select(long id)
     {

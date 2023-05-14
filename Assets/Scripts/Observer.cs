@@ -29,4 +29,13 @@ public class Observer : MonoBehaviour
             updateMarker();
         }
     }
+
+    public event Action changingPositionValues;
+    public void ChangingPositionValues()
+    {
+        if (changingPositionValues != null)
+        {
+            changingPositionValues();
+        }
+    }
 }

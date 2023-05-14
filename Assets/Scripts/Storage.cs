@@ -23,7 +23,7 @@ public class Storage : MonoBehaviour
         viewList = new HashSet<string>();
         Observer.current.markerSelected += UnselectAll;
         savingMethod = new SaveScene();
-        SceneName = GenerateRandomString();
+        SceneName = "Scene";
     }
 
     private string GenerateRandomString(int length = 10)
@@ -41,19 +41,30 @@ public class Storage : MonoBehaviour
     public void SetSceneContext(GameObject sceneContext)
     {
         this.sceneContext = sceneContext;
-        foreach (var marker in markers)
+    }
+
+    private void LinkMarkersToContext()
+    {
+        if (this.sceneContext != null)
         {
-            marker.transform.SetParent(this.sceneContext.transform);
+            foreach (ObjectMarker marker in markers)
+            {
+                marker.transform.parent = this.sceneContext.transform;
+            }
+        }
+    }
+
+    private void UnlinkMarkersFromContext()
+    {
+        foreach (ObjectMarker marker in markers)
+        {
+            marker.transform.parent = null;
         }
     }
 
     public void AddMarker(ObjectMarker marker)
     {
         markers.Add(marker);
-        if (sceneContext != null)
-        {
-        marker.transform.SetParent(this.sceneContext.transform);
-        }
     }
 
     public void UpdateViews(ObjectMarker marker)
@@ -78,8 +89,7 @@ public class Storage : MonoBehaviour
         viewList.RemoveWhere(s => Regex.Match(s, @".*Details").Success);
     }
     private void AddDetailViews(ObjectMarker marker)
-    {
-        marker.RemoveDetailsView();
+    {;
         if (marker.GetViews() != null)
         {
             if (!string.IsNullOrEmpty(marker.Label))
@@ -99,13 +109,15 @@ public class Storage : MonoBehaviour
 
     public void Save()
     {
-        RemoveDetailsView();
+        LinkMarkersToContext();
+        viewList.Clear();
         foreach (var marker in markers)
         {
             AddDetailViews(marker);
             UpdateViews(marker);
         }
         savingMethod.SaveState(markers, viewList, SceneName);
+        UnlinkMarkersFromContext();
     }
 
     public GameObject findById(long id)

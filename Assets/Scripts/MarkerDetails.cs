@@ -1,27 +1,43 @@
 using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MarkerDetails : MonoBehaviour
 {
     private ObjectMarker marker;
     [SerializeField] UpdateSelectedObject updater;
-    [SerializeField] private TMP_InputField labelText;
+    [Header("InputFields")]
     [SerializeField] private TMP_InputField urlText;
+    [SerializeField] private TMP_InputField labelText;
+    [Header("Visibilities")]
     [SerializeField] private InputFieldManagment inputFields;
+    [SerializeField] private GameObject menu;
+    [Header("Buttons")]
+    [SerializeField] private Button input;
+    [SerializeField] private Button output;
+    [SerializeField] private Button model;
     private bool move, scale = false;
+    private bool visibleMove, visibleScale = false;
     void Start()
     {
         Observer.current.updateMarker += SetMarkerDetails;
+        Observer.current.changingPositionValues += VisualisePosition;
         inputFields.gameObject.SetActive(false);
+        menu.SetActive(false);
     }
 
     private void SetMarkerDetails()
     {
+        visibleMove = false;
+        visibleScale = false;
+        menu.SetActive(true);
         marker = updater.Marker;
         UpdateLabel();
         UpdateUrl();
+        UpdateButtons();
         inputFields.gameObject.SetActive(false);
         //UpdateViews();
     }
@@ -58,6 +74,7 @@ public class MarkerDetails : MonoBehaviour
             {
                 marker.Url = content;
                 UpdateUrl();
+                return;
             }
         }
         urlText.text = "";
@@ -81,7 +98,6 @@ public class MarkerDetails : MonoBehaviour
             }
         }
         labelText.text = "";
-
     }
 
     private void UpdateLabel()
@@ -91,19 +107,41 @@ public class MarkerDetails : MonoBehaviour
 
     public void ShowMove()
     {
-        if (marker != null)
+        visibleScale = false;
+        if (visibleMove == false)
+        { 
+            if (marker != null)
+            {
+                marker.GetComponent<Dragging>().ShowMove();
+                VisualisePosition();
+                visibleMove = true;
+            }
+        }
+        else if (visibleMove == true)
         {
-            marker.GetComponent<Dragging>().ShowMove();
-            VisualisePosition();
+            marker.GetComponent<Dragging>().HideAll();
+            visibleMove = false;
+            inputFields.gameObject.SetActive(false);
         }
     }
 
     public void ShowScale()
     {
-        if (marker != null)
+        visibleMove = false;
+        if (visibleScale == false)
         {
-            marker.GetComponent<Dragging>().ShowScale();
-            VisualiseScale();
+            if (marker != null)
+            {
+                marker.GetComponent<Dragging>().ShowScale();
+                VisualiseScale();
+                visibleScale = true;
+            }
+        }
+        else if (visibleScale == true)
+        {
+            marker.GetComponent<Dragging>().HideAll();
+            visibleScale = false;
+            inputFields.gameObject.SetActive(false);
         }
     }
 
@@ -134,6 +172,63 @@ public class MarkerDetails : MonoBehaviour
         {
             marker.transform.localScale = inputFields.ReadFielads();
             VisualiseScale();
+        }
+    }
+
+    public void SetElementType(string type)
+    {
+        if (this.marker != null)
+        {
+            this.marker.ElementType = type;
+        }
+    }
+
+    private void ElementInput() => SetElementType(ElementType.INPUT);
+    private void ElementOutput() => SetElementType(ElementType.OUTPUT);
+    private void ElementModel() => SetElementType(ElementType.MODEL);
+
+    public void ColoredElementInput()
+    {
+        UncolorButtons();
+        input.GetComponent<Image>().color = Color.grey;
+        ElementInput();
+    }
+    public void ColoredElementOutput()
+    {
+        UncolorButtons();
+        output.GetComponent<Image>().color = Color.grey;
+        ElementOutput();
+    }
+    public void ColoredElementModel()
+    {
+        UncolorButtons();
+        model.GetComponent<Image>().color = Color.grey;
+        ElementModel();
+    }
+
+    private void UncolorButtons()
+    {
+        input.GetComponent<Image>().color = Color.white;
+        output.GetComponent<Image>().color = Color.white;
+        model.GetComponent<Image>().color = Color.white;
+    }
+
+    private void UpdateButtons()
+    {
+        switch (this.marker.ElementType)
+        {
+            case ElementType.INPUT: 
+                ColoredElementInput();
+                break;
+            case ElementType.OUTPUT: 
+                ColoredElementOutput(); 
+                break;
+            case ElementType.MODEL:
+                ColoredElementModel();
+                break;
+            default:
+                UncolorButtons();
+                break;
         }
     }
 

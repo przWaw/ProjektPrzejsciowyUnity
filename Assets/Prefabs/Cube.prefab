@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2676447527302365054}
   - component: {fileID: 804998772676327377}
   - component: {fileID: 7056313030620849052}
-  - component: {fileID: 7679465708975637027}
+  - component: {fileID: 7470086102754200387}
   m_Layer: 0
   m_Name: yAxis
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7483389525807859729}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2676447527302365054
 MeshFilter:
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7679465708975637027
+--- !u!114 &7470086102754200387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,9 +107,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 790096003574973558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c541adef1e8871e48ac9bc5199637280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 1
 --- !u!1 &1491542862299592580
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +124,7 @@ GameObject:
   - component: {fileID: 3990987335083821673}
   - component: {fileID: 8883401167855012182}
   - component: {fileID: 2171991814204335331}
-  - component: {fileID: 2789112767331079601}
+  - component: {fileID: 2057644068939228209}
   m_Layer: 0
   m_Name: zAxis
   m_TagString: Untagged
@@ -143,7 +145,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7483389525807859729}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3990987335083821673
 MeshFilter:
@@ -208,7 +210,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2789112767331079601
+--- !u!114 &2057644068939228209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,9 +219,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1491542862299592580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c541adef1e8871e48ac9bc5199637280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 2
 --- !u!1 &1539256903876285198
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,8 +253,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4049332992437491077}
-  - {fileID: 6833620518179956057}
   - {fileID: 2935210528438375964}
+  - {fileID: 6833620518179956057}
   m_Father: {fileID: 3749059837246390464}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -314,7 +318,7 @@ GameObject:
   - component: {fileID: 1175751462490469422}
   - component: {fileID: 7029563604199316179}
   - component: {fileID: 775982476040339457}
-  - component: {fileID: 5618633642150062313}
+  - component: {fileID: 5066755221214697070}
   m_Layer: 0
   m_Name: xAxis
   m_TagString: Untagged
@@ -400,7 +404,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5618633642150062313
+--- !u!114 &5066755221214697070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,9 +413,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3334984667196509835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c541adef1e8871e48ac9bc5199637280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 0
 --- !u!1 &3745059586191960930
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +430,7 @@ GameObject:
   - component: {fileID: 6537627725357983739}
   - component: {fileID: 5374001326086749315}
   - component: {fileID: 891556548912037064}
-  - component: {fileID: 1695955925047681669}
+  - component: {fileID: 7305103512344548932}
   m_Layer: 0
   m_Name: zAxis
   m_TagString: Untagged
@@ -445,7 +451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806017929593928755}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6537627725357983739
 MeshFilter:
@@ -510,7 +516,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1695955925047681669
+--- !u!114 &7305103512344548932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -519,9 +525,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3745059586191960930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e8ca05a50a70bb24b9155c569a6371ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 2
 --- !u!1 &3845970306741532064
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,9 +558,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8924209369500177829}
   - {fileID: 3037560896967957051}
   - {fileID: 8139352146462512064}
+  - {fileID: 8924209369500177829}
   m_Father: {fileID: 3749059837246390464}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -595,7 +603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &4384210615392080101
@@ -699,7 +707,7 @@ GameObject:
   - component: {fileID: 260437168735120191}
   - component: {fileID: 999084761901267452}
   - component: {fileID: 9207536730902500025}
-  - component: {fileID: 3046403138767394580}
+  - component: {fileID: 6059403063970876}
   m_Layer: 0
   m_Name: xAxis
   m_TagString: Untagged
@@ -720,7 +728,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806017929593928755}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &260437168735120191
 MeshFilter:
@@ -785,7 +793,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3046403138767394580
+--- !u!114 &6059403063970876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -794,9 +802,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986834254069668931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e8ca05a50a70bb24b9155c569a6371ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 0
 --- !u!1 &8829883890397663270
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +819,7 @@ GameObject:
   - component: {fileID: 4535647553052839105}
   - component: {fileID: 5150155283680599167}
   - component: {fileID: 1656024008617016615}
-  - component: {fileID: 9150658808007624036}
+  - component: {fileID: 5520963991424380602}
   m_Layer: 0
   m_Name: yAxis
   m_TagString: Untagged
@@ -830,7 +840,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806017929593928755}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4535647553052839105
 MeshFilter:
@@ -895,7 +905,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9150658808007624036
+--- !u!114 &5520963991424380602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -904,6 +914,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8829883890397663270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1379829f7baf436448665e5e00d040b1, type: 3}
+  m_Script: {fileID: 11500000, guid: e8ca05a50a70bb24b9155c569a6371ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motherCube: {fileID: 2326339421269810681}
+  axis: 1

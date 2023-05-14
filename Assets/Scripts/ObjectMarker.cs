@@ -8,6 +8,7 @@ public class ObjectMarker : MonoBehaviour
     public string Label { get; set; }
     public long Id { get; set; }
     public string Url { get; set; }
+    public string ElementType { get; set; }
     private HashSet<string> views;
     private void Start()
     {
@@ -22,6 +23,7 @@ public class ObjectMarker : MonoBehaviour
 
     public void AddDetailsView(string prefix)
     {
+        views.Clear();
         views.Add(prefix.ToLower() + "_" + Label.ToLower() + "Details");
     }
 
@@ -33,20 +35,22 @@ public class ObjectMarker : MonoBehaviour
     public List<string> GetViews()
     {
         if (views != null) 
-        { 
-        List<string> sorted = views.ToList();
-        sorted.Sort();
-        return sorted;
+        {
+            views.Add(ElementType);
+            List<string> sorted = views.ToList();
+            sorted.Sort();
+            return sorted;
         }
         return null;
     }
-    
+
     public TransportClass getMarker()
     {
         return new TransportClass
         {
             label = Label,
             url = Url,
+            type = ElementType,
             position = this.transform.localPosition,
             rotation = this.transform.localEulerAngles,
             scale = this.transform.localScale,
