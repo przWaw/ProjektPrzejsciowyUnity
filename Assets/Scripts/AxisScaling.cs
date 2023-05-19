@@ -92,6 +92,7 @@ public class AxisScaling : MonoBehaviour
             }
             motherCube.localScale = temp;
             point = newPoint;
+            Observer.current.ChangingScaleValues();
         }
     }
 }

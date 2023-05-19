@@ -25,6 +25,7 @@ public class MarkerDetails : MonoBehaviour
     {
         Observer.current.updateMarker += SetMarkerDetails;
         Observer.current.changingPositionValues += VisualisePosition;
+        Observer.current.changingScaleValues += VisualiseScale;
         inputFields.gameObject.SetActive(false);
         menu.SetActive(false);
     }

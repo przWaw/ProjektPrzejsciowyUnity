@@ -38,4 +38,13 @@ public class Observer : MonoBehaviour
             changingPositionValues();
         }
     }
+
+    public event Action changingScaleValues;
+    public void ChangingScaleValues()
+    {
+        if (changingScaleValues != null)
+        {
+            changingScaleValues();
+        }
+    }
 }
