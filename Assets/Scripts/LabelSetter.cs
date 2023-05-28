@@ -11,7 +11,7 @@ public class LabelSetter : MonoBehaviour
 
     private void SetMarkerDetails(long id)
     {
-        GameObject gameObject = Storage.storage.findById(id);
+        GameObject gameObject = Storage.storage.FindById(id);
         if (gameObject != null)
         {
             this.marker = gameObject.GetComponent<ObjectMarker>();

@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MarkerDetails : MonoBehaviour
@@ -18,16 +19,61 @@ public class MarkerDetails : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] private Button input;
     [SerializeField] private Button output;
-    [SerializeField] private Button model;
+    [Header("Menus")]
+    [SerializeField] private GameObject creatorMenu;
+    [SerializeField] private GameObject programMenu;
+    //[SerializeField] private Button model;
     private bool move, scale = false;
     private bool visibleMove, visibleScale = false;
+    private bool detailsOn = false;
+    private bool visibleProgramMenu = false;
     void Start()
     {
         Observer.current.updateMarker += SetMarkerDetails;
         Observer.current.changingPositionValues += VisualisePosition;
         Observer.current.changingScaleValues += VisualiseScale;
+        programMenu.SetActive(false);
         inputFields.gameObject.SetActive(false);
         menu.SetActive(false);
+        detailsOn = false;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            HandleEscButton();
+        }
+    }
+
+    private void HandleEscButton()
+    {
+        if (visibleMove || visibleScale)
+        {
+            if (visibleMove)
+            {
+                ShowMove();
+            } else if (visibleScale)
+            {
+                ShowScale();
+            }
+        } else if (detailsOn)
+        {
+            menu.SetActive(false);
+            marker = null;
+            updater.ResetMarker();
+            detailsOn = false;
+        } else if (!visibleProgramMenu)
+        {
+            programMenu.SetActive(true);
+            visibleProgramMenu = true;
+            Storage.storage.BlockAllMarkers();
+        } else if (visibleProgramMenu)
+        {
+            programMenu.SetActive(false);
+            visibleProgramMenu = false;
+            Storage.storage.UnblockAllMarkers();
+        }
     }
 
     private void SetMarkerDetails()
@@ -35,6 +81,7 @@ public class MarkerDetails : MonoBehaviour
         visibleMove = false;
         visibleScale = false;
         menu.SetActive(true);
+        detailsOn = true;
         marker = updater.Marker;
         UpdateLabel();
         UpdateUrl();
@@ -186,7 +233,7 @@ public class MarkerDetails : MonoBehaviour
 
     private void ElementInput() => SetElementType(ElementType.INPUT);
     private void ElementOutput() => SetElementType(ElementType.OUTPUT);
-    private void ElementModel() => SetElementType(ElementType.MODEL);
+    //private void ElementModel() => SetElementType(ElementType.MODEL);
 
     public void ColoredElementInput()
     {
@@ -200,18 +247,18 @@ public class MarkerDetails : MonoBehaviour
         output.GetComponent<Image>().color = Color.grey;
         ElementOutput();
     }
-    public void ColoredElementModel()
-    {
-        UncolorButtons();
-        model.GetComponent<Image>().color = Color.grey;
-        ElementModel();
-    }
+    //public void ColoredElementModel()
+    //{
+    //    UncolorButtons();
+    //    model.GetComponent<Image>().color = Color.grey;
+    //    ElementModel();
+    //}
 
     private void UncolorButtons()
     {
         input.GetComponent<Image>().color = Color.white;
         output.GetComponent<Image>().color = Color.white;
-        model.GetComponent<Image>().color = Color.white;
+        //model.GetComponent<Image>().color = Color.white;
     }
 
     private void UpdateButtons()
@@ -224,19 +271,19 @@ public class MarkerDetails : MonoBehaviour
             case ElementType.OUTPUT: 
                 ColoredElementOutput(); 
                 break;
-            case ElementType.MODEL:
-                ColoredElementModel();
-                break;
+            //case ElementType.MODEL:
+            //    ColoredElementModel();
+            //    break;
             default:
                 UncolorButtons();
                 break;
         }
     }
 
-    public void FocusAgain(string none)
-    {
-        this.GetComponent<TMP_InputField>().text = "";
-        this.GetComponent<TMP_InputField>().Select();
-        this.GetComponent<TMP_InputField>().ActivateInputField();
-    }
+    //public void FocusAgain(string none)
+    //{
+    //    this.GetComponent<TMP_InputField>().text = "";
+    //    this.GetComponent<TMP_InputField>().Select();
+    //    this.GetComponent<TMP_InputField>().ActivateInputField();
+    //}
 }

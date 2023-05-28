@@ -13,12 +13,18 @@ public class UpdateSelectedObject : MonoBehaviour
 
     private void SetMarkerDetails(long id)
     {
-        GameObject gameObject = Storage.storage.findById(id);
+        GameObject gameObject = Storage.storage.FindById(id);
         if (gameObject != null)
         {
             this.Marker = gameObject.GetComponent<ObjectMarker>();
             Observer.current.UpdateMarker();
         }
 
+    }
+
+    public void ResetMarker()
+    {
+        Marker.gameObject.GetComponent<Dragging>().selected = false;
+        Marker = null;
     }
 }

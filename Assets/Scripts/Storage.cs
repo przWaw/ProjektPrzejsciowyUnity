@@ -120,7 +120,7 @@ public class Storage : MonoBehaviour
         UnlinkMarkersFromContext();
     }
 
-    public GameObject findById(long id)
+    public GameObject FindById(long id)
     {
         foreach (var marker in markers)
         {
@@ -130,5 +130,21 @@ public class Storage : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void BlockAllMarkers()
+    {
+        foreach(var marker in markers)
+        {
+            marker.gameObject.GetComponent<Collider>().enabled = false;
+        }
+    }
+
+    public void UnblockAllMarkers()
+    {
+        foreach( var marker in markers)
+        {
+            marker.gameObject.GetComponent<Collider>().enabled = true;
+        }
     }
 }
