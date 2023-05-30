@@ -1,0 +1,84 @@
+{
+    "objects": [
+        {
+            "label": "OBIEKT1",
+            "url": "someurl",
+            "type": "joining_input",
+            "position": {
+                "x": -32.76957321166992,
+                "y": 5.0,
+                "z": 26.80406951904297
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 35.27995681762695,
+                "y": 5.498683929443359,
+                "z": 10.0
+            },
+            "views": [
+                "myscene_obiekt1Details",
+                "joining_input"
+            ]
+        },
+        {
+            "label": "OBIEKT2",
+            "url": "anotherUrl",
+            "type": "joining_output",
+            "position": {
+                "x": 19.712472915649415,
+                "y": 13.401187896728516,
+                "z": -14.304086685180664
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.8481636047363282,
+                "y": 19.821901321411134,
+                "z": 10.0
+            },
+            "views": [
+                "myscene_obiekt2Details",
+                "joining_output"
+            ]
+        },
+        {
+            "label": "OBIEKT3",
+            "url": "lastUrl",
+            "type": "joining_model",
+            "position": {
+                "x": -35.761932373046878,
+                "y": 8.319034576416016,
+                "z": -6.858755111694336
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10.0,
+                "y": 10.0,
+                "z": 10.0
+            },
+            "views": [
+                "myscene_obiekt3Details",
+                "joining_model"
+            ]
+        }
+    ],
+    "viewList": [
+        "joining_input",
+        "myscene_obiekt1Details",
+        "joining_output",
+        "myscene_obiekt2Details",
+        "joining_model",
+        "myscene_obiekt3Details"
+    ]
+}
