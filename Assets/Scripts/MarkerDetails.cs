@@ -120,7 +120,7 @@ public class MarkerDetails : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(content.Trim()))
             {
-                marker.Url = content;
+                marker.Url = "http://mes-pc.festo.systems:8000/InfoPortal/MPS/Components/Baeldung2147/" + content;
                 UpdateUrl();
                 return;
             }
